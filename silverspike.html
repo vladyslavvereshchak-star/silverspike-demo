@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silver Spike Saloon – Winnipeg, MB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Rye&family=Playfair+Display:wght@400;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9952A;
+      --gold-light: #e8b84b;
+      --cream: #F2E8D0;
+      --brown-dark: #1a0f00;
+      --brown: #2e1a00;
+      --brown-mid: #4a2e0a;
+      --brown-light: #6b4218;
+      --border: #3d2800;
+      --text: #F2E8D0;
+      --muted: #9a7a50;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--brown-dark);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* WOOD TEXTURE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          90deg,
+          transparent 0px,
+          transparent 40px,
+          rgba(0,0,0,0.03) 40px,
+          rgba(0,0,0,0.03) 41px
+        ),
+        repeating-linear-gradient(
+          180deg,
+          transparent 0px,
+          transparent 80px,
+          rgba(255,255,255,0.01) 80px,
+          rgba(255,255,255,0.01) 81px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(26,15,0,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--gold);
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Rye', cursive;
+      font-size: 22px;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-family: 'DM Sans', sans-serif;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      padding: 9px 22px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold); color: var(--brown-dark); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      position: relative;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 60%, rgba(201,149,42,0.08) 0%, transparent 70%),
+        var(--brown-dark);
+      overflow: hidden;
+    }
+    .hero-skull {
+      font-size: 80px;
+      margin-bottom: 16px;
+      opacity: 0.9;
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .hero-label {
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .hero-title {
+      font-family: 'Rye', cursive;
+      font-size: clamp(48px, 10vw, 96px);
+      line-height: 1;
+      letter-spacing: 4px;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+    .hero-title-sub {
+      font-family: 'Rye', cursive;
+      font-size: clamp(28px, 5vw, 52px);
+      color: var(--gold);
+      letter-spacing: 8px;
+      margin-bottom: 24px;
+    }
+    .hero-divider {
+      width: 200px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 24px;
+    }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      max-width: 420px;
+      font-style: italic;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--brown-dark);
+      padding: 14px 36px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      padding: 14px 36px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { background: rgba(201,149,42,0.1); transform: translateY(-2px); }
+    .hero-address {
+      margin-top: 48px;
+      font-size: 12px;
+      color: #3d2800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* STAR DIVIDER */
+    .star-divider {
+      text-align: center;
+      color: var(--gold);
+      font-size: 18px;
+      letter-spacing: 12px;
+      padding: 8px 0;
+      opacity: 0.6;
+    }
+
+    /* SECTIONS */
+    section { padding: 80px 24px; position: relative; z-index: 1; }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .section-title {
+      font-family: 'Rye', cursive;
+      font-size: clamp(32px, 5vw, 48px);
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+      color: var(--cream);
+      line-height: 1.1;
+    }
+    .section-divider {
+      width: 80px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 40px;
+    }
+
+    /* ABOUT */
+    #about { background: var(--brown); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .about-text p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .stat-box {
+      background: var(--brown-dark);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
+      padding: 20px;
+      text-align: center;
+      border-radius: 4px;
+    }
+    .stat-number {
+      font-family: 'Rye', cursive;
+      font-size: 36px;
+      color: var(--gold);
+      display: block;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    /* ENTERTAINMENT */
+    #entertainment { background: var(--brown-dark); }
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .event-card {
+      background: var(--brown);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .event-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+    .event-icon { font-size: 36px; margin-bottom: 12px; }
+    .event-name {
+      font-family: 'Rye', cursive;
+      font-size: 16px;
+      color: var(--cream);
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
+    .event-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    /* HOURS */
+    #hours { background: var(--brown); }
+    .hours-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
+    }
+    .hour-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      background: var(--brown-dark);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 2px;
+    }
+    .hour-day { font-size: 13px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+    .hour-time { font-size: 13px; font-weight: 500; color: var(--cream); }
+    .drive-thru-section { margin-top: 32px; }
+    .drive-thru-title {
+      font-family: 'Rye', cursive;
+      font-size: 20px;
+      color: var(--gold);
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+
+    /* FIND */
+    #find { background: var(--brown-dark); }
+    .find-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .find-detail {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+    .find-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .find-text { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .find-text strong { color: var(--cream); display: block; }
+    .map-box {
+      background: var(--brown);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
+      border-radius: 4px;
+      height: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+      padding: 20px;
+    }
+    .map-box .map-pin { font-size: 44px; }
+
+    /* FOOTER */
+    footer {
+      background: #0d0800;
+      border-top: 2px solid var(--gold);
+      padding: 48px 24px 32px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-logo {
+      font-family: 'Rye', cursive;
+      font-size: 36px;
+      color: var(--gold);
+      letter-spacing: 4px;
+      margin-bottom: 4px;
+    }
+    .footer-sub {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .footer-links a {
+      font-size: 11px;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: 11px; color: #2e1a00; letter-spacing: 1px; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-skull { animation: float 4s ease-in-out infinite, fadeUp 0.5s ease both; }
+    .hero-label { animation: fadeUp 0.6s ease 0.1s both; }
+    .hero-title { animation: fadeUp 0.6s ease 0.2s both; }
+    .hero-title-sub { animation: fadeUp 0.6s ease 0.3s both; }
+    .hero-divider { animation: fadeUp 0.6s ease 0.4s both; }
+    .hero-sub { animation: fadeUp 0.6s ease 0.5s both; }
+    .hero-btns { animation: fadeUp 0.6s ease 0.6s both; }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .about-grid, .find-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Silver Spike</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#entertainment">Entertainment</a></li>
+      <li><a href="#hours">Hours</a></li>
+      <li><a href="#find">Find Us</a></li>
+    </ul>
+    <a href="#find" class="nav-cta">Visit Us</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-label">Winnipeg's Wildest Saloon</p>
+    <h1 class="hero-title">Silver Spike</h1>
+    <p class="hero-title-sub">Saloon</p>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Cold drinks, live music & good times in the heart of Winnipeg, MB</p>
+    <div class="hero-btns">
+      <a href="#entertainment" class="btn-primary">See What's On</a>
+      <a href="#hours" class="btn-outline">Hours & Location</a>
+    </div>
+    <p class="hero-address">Winnipeg, Manitoba · Est. in the Wild West</p>
+  </section>
+
+  <div class="star-divider">★ ★ ★ ★ ★</div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="section-label">Our Story</p>
+          <h2 class="section-title">Winnipeg's Real Saloon</h2>
+          <div class="section-divider"></div>
+          <p>Silver Spike Saloon is Winnipeg's home for cold beer, live entertainment, and that old-school western spirit. Whether you're rolling in after a long week or looking for a wild Saturday night — you've found your place.</p>
+          <p>Cold drafts on tap, shots at the bar, and a stage that never goes quiet. This is how the west was fun.</p>
+          <a href="#hours" class="btn-primary" style="margin-top: 8px;">Find Us Tonight</a>
+        </div>
+        <div class="about-stats">
+          <div class="stat-box">
+            <span class="stat-number">🍺</span>
+            <span class="stat-label">Cold Beer on Tap</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">🎸</span>
+            <span class="stat-label">Live Music</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">🎱</span>
+            <span class="stat-label">Pool Tables</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">🚗</span>
+            <span class="stat-label">Drive Thru</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="star-divider">✦ ✦ ✦</div>
+
+  <!-- ENTERTAINMENT -->
+  <section id="entertainment">
+    <div class="container">
+      <p class="section-label">Never a Dull Moment</p>
+      <h2 class="section-title">Entertainment</h2>
+      <div class="section-divider"></div>
+      <div class="event-grid">
+        <div class="event-card">
+          <div class="event-icon">🎸</div>
+          <p class="event-name">Live Music</p>
+          <p class="event-desc">Local bands & touring acts bringing the heat every weekend</p>
+        </div>
+        <div class="event-card">
+          <div class="event-icon">🎱</div>
+          <p class="event-name">Pool Tables</p>
+          <p class="event-desc">Shoot some stick with friends any night of the week</p>
+        </div>
+        <div class="event-card">
+          <div class="event-icon">🎯</div>
+          <p class="event-name">Darts</p>
+          <p class="event-desc">Classic bar darts — friendly competition welcome</p>
+        </div>
+        <div class="event-card">
+          <div class="event-icon">🥃</div>
+          <p class="event-name">Drink Specials</p>
+          <p class="event-desc">Weekly promotions on beer, shots & more</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="star-divider">★ ★ ★ ★ ★</div>
+
+  <!-- HOURS -->
+  <section id="hours">
+    <div class="container">
+      <p class="section-label">Come On In</p>
+      <h2 class="section-title">Hours</h2>
+      <div class="section-divider"></div>
+
+      <p style="font-size:13px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-bottom:16px;">Bar Hours</p>
+      <div class="hours-wrap">
+        <div class="hour-row"><span class="hour-day">Mon – Thu</span><span class="hour-time">9:00 am – 12:00 am</span></div>
+        <div class="hour-row"><span class="hour-day">Friday</span><span class="hour-time">9:00 am – 2:00 am</span></div>
+        <div class="hour-row"><span class="hour-day">Saturday</span><span class="hour-time">9:00 am – 2:00 am</span></div>
+        <div class="hour-row"><span class="hour-day">Sunday</span><span class="hour-time">9:00 am – 7:00 pm</span></div>
+      </div>
+
+      <div class="drive-thru-section">
+        <p class="drive-thru-title">🚗 Drive Thru Vendor</p>
+        <div class="hours-wrap">
+          <div class="hour-row"><span class="hour-day">Mon – Sat</span><span class="hour-time">8:00 am – 12:00 am</span></div>
+          <div class="hour-row"><span class="hour-day">Sunday</span><span class="hour-time">8:00 am – 7:00 pm</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIND -->
+  <section id="find">
+    <div class="container">
+      <p class="section-label">Ride On Over</p>
+      <h2 class="section-title">Find The Saloon</h2>
+      <div class="section-divider"></div>
+      <div class="find-grid">
+        <div>
+          <div class="find-detail">
+            <span class="find-icon">📍</span>
+            <div class="find-text">
+              <strong>Winnipeg, Manitoba</strong>
+              Come find us in the heart of the city
+            </div>
+          </div>
+          <div class="find-detail">
+            <span class="find-icon">🕐</span>
+            <div class="find-text">
+              <strong>Open 7 Days a Week</strong>
+              Bar open from 9am daily
+            </div>
+          </div>
+          <div class="find-detail">
+            <span class="find-icon">🚗</span>
+            <div class="find-text">
+              <strong>Drive Thru Available</strong>
+              Quick stop before the party
+            </div>
+          </div>
+          <a href="https://maps.google.com/?q=Silver+Spike+Saloon+Winnipeg" target="_blank" class="btn-primary" style="margin-top:8px; font-size:12px;">Get Directions →</a>
+        </div>
+        <div class="map-box">
+          <span class="map-pin">📍</span>
+          <span style="font-family:'Rye',cursive; font-size:18px; color:var(--gold);">Silver Spike Saloon</span>
+          <span>Winnipeg, MB</span>
+          <a href="https://maps.google.com/?q=Silver+Spike+Saloon+Winnipeg" target="_blank" style="color:var(--gold); font-size:12px; letter-spacing:1px;">Open in Google Maps →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-logo">Silver Spike</p>
+    <p class="footer-sub">Saloon · Winnipeg, Manitoba</p>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#entertainment">Entertainment</a>
+      <a href="#hours">Hours</a>
+      <a href="#find">Find Us</a>
+    </div>
+    <p class="footer-copy">© Silver Spike Saloon · Demo page – not official · Made with ❤️ in Winnipeg</p>
+  </footer>
+
+</body>
+</html>
